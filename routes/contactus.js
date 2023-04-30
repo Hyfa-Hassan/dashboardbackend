@@ -22,15 +22,24 @@ router.post("/contact",async(req,res)=>{
     }
 })
 
-app.get("/getAllContactInfo", async(req, res) => {
-    try{
-        const allInfo = await ContactUs.find({});
-        console.log(allInfo)
-        res.send({status: "ok", data: allInfo});
+// app.get("/contact", async(req, res) => {
+//     try{
+//         const allInfo = await ContactUs.find({});
+//         console.log(allInfo)
+//         res.send({status: "ok", data: allInfo});
+//     }
+//     catch(error){
+//         console.log(error)
+//     }
+// })
+
+router.get('/contact', async (req, res, next) => {
+    try {
+      const contacts = await ContactUs.find();
+      res.json(contacts);
+    } catch (error) {
+      next(error);
     }
-    catch(error){
-        console.log(error)
-    }
-})
+  });
 
 module.exports = router
